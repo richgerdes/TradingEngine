@@ -31,20 +31,33 @@ public class TenPercentRule extends TradingProfile {
 	}
 
 	private void buyRoute(Market m) {
+		if(usd <= 0.0f)
+			return;
+		
 		if((m.lastIndex() - trough) / trough > .1f){
 			System.out.println("Market is Buyable!");
+			try {
+				buyBTC(usd / m.lastPrice(), m.lastIndex());
+			} catch (FundsUnavaliableException e) {
+				System.out.println(e.getMessage());
+			}
 		}
 	}
 
 	private void sellRoute(Market m) {
 		
 		if(peakIndex < lastBuyIndex){
-			System.out.println("It has not peaked yet...");
+			System.out.println("No peak since buy...");
 			return;
 		}
 
 		if(m.lastPrice() < peak && lastBuyIndex < peakIndex && (peak - m.lastPrice()) / (peak - lastBuyPrice) > .1f){
 			System.out.println("We should really sell...");
+			try {
+				sellBTC(btc, m.lastIndex());
+			} catch (FundsUnavaliableException e) {
+				System.out.println(e.getMessage());
+			}
 		}else{
 			System.out.println("Not Selling");
 		}

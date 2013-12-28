@@ -5,12 +5,10 @@ public class Runner {
 	public static void main(String[] args) {
 
 		TradingEngine e = new TradingEngine();
+		
+		TradeWatcher t = new TradeWatcher(e);
 
-		e.onTrade(1f);
-		e.onTrade(3f);
-		e.onTrade(2f);
-
-		System.out.println("Done");
+		t.start();
 	}
 
 }

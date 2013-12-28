@@ -29,7 +29,7 @@ public abstract class TradingProfile {
 	}
 
 	public void buyBTC(float num, float price) throws FundsUnavaliableException {
-		if (usd > num * price) {
+		if (usd >= num * price) {
 
 		} else {
 			throw new FundsUnavaliableException("USD", usd, num * price);
@@ -38,12 +38,16 @@ public abstract class TradingProfile {
 
 	public void sellBTC(float num, float price) throws FundsUnavaliableException {
 
-		if (btc > num) {
+		if (btc >= num) {
 			btc -= num;
 			usd += num * price;
 		} else {
 			throw new FundsUnavaliableException("BTC", btc, num);
 		}
+	}
+
+	public void printProfit() {
+		System.out.println("BTC: " + btc + " USD: " + usd );
 	}
 
 }

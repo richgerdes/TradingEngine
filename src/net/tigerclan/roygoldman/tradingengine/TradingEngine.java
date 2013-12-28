@@ -9,7 +9,7 @@ public class TradingEngine {
 	
 	public TradingEngine(){
 		
-		profiles.add(new TenPercentRule(0, 0));
+		profiles.add(new TenPercentRule(1, 10));
 		market = new Market("MtGox");
 	
 	}
@@ -17,12 +17,17 @@ public class TradingEngine {
 	public void onTrade(Float trade){
 		market.addTrade(trade);
 
-
 		//all Profiles trade
 		
 		for(TradingProfile p : profiles){
 			p.onTrade(market);
 		}
 		
+	}
+	
+	public void onClose(){
+		for(TradingProfile p : profiles){
+			p.printProfit();
+		}
 	}
 }
