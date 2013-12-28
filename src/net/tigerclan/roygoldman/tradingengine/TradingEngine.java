@@ -9,9 +9,8 @@ public class TradingEngine {
 	
 	public TradingEngine(){
 		
-		profiles.add(new TenPercentRule(1, 10));
+		profiles.add(new TenPercentRule(0, 132.56f));
 		market = new Market("MtGox");
-	
 	}
 
 	public void onTrade(Float trade){
