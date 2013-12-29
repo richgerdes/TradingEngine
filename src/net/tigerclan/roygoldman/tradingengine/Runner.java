@@ -8,7 +8,12 @@ public class Runner {
 		
 		TradeWatcher t = new TradeWatcher(e);
 
-		t.start();
+		//t.start();
+		
+		TradeWatcherSQL w = new TradeWatcherSQL(e);
+		
+		w.start();
+		
 	}
 
 }
