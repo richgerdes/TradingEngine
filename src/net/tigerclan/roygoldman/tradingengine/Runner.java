@@ -8,11 +8,11 @@ public class Runner {
 		
 		TradeWatcher t = new TradeWatcher(e);
 
-		//t.start();
+		t.start();
 		
-		TradeWatcherSQL w = new TradeWatcherSQL(e);
+		//TradeWatcherSQL w = new TradeWatcherSQL(e);
 		
-		w.start();
+		//w.start();
 		
 	}
 

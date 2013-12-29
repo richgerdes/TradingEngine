@@ -53,6 +53,7 @@ public class TradeWatcherSQL extends Thread {
 			
 			while(rs.next()){
 				addTrade(Float.parseFloat(rs.getString("last")));
+				trade();
 			}
 
 			rs.close();
@@ -63,6 +64,12 @@ public class TradeWatcherSQL extends Thread {
 			e.printStackTrace();
 		}
 		
+		engine.onClose();
+		
+	}
+
+	private void trade() {
+		engine.onTrade(smoothTrades.get(smoothTrades.size() - 1));
 	}
 
 	private void addTrade(float trade) {
@@ -71,15 +78,12 @@ public class TradeWatcherSQL extends Thread {
 	}
 
 	private Float smoothValue(int i) {
-		if(i < 3){
+		if(i == 0){
 			return rawTrades.get(i);
+		}else if(i == 1){
+			return .3f * rawTrades.get(i - 1) + .7f * rawTrades.get(i);
 		}else{
-			//smooth
-			float raw = rawTrades.get(i);
-			
-			
-			float value = raw;
-			return value;
+			return .2f * rawTrades.get(i - 2) + .3f * rawTrades.get(i - 1) + .5f * rawTrades.get(i);
 		}
 	}
 
